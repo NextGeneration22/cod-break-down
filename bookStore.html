@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  <head> 
+    <meta charset="UTF-8"/> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>Amazing JavaScript Bookstore</title> 
+  </head> 
+  <body> 
+    <h1>The Books</h1> 
+    <div id="bookstore"></div> 
+    <h1>Your Cart</h1> 
+    <div id="cart"></div> 
+    <script>
+        const bookstore = { 
+        books: ['Ulysses', 'The Great Gatsby'], 
+         removeBook(title) { 
+          let newList = this.books.filter((book) => book != title); // this romve the Item that exist in the Array Item in cart form the Array "books". useing the filter methot which create a new Array named "newList" that dose not enclud the input of the function.
+          this.books = newList; //this compair the books Array to the newlist Array to make them equale so any change you make to one of them it will effect the other one.
+          this.displayBookstore(); // call the display function to dis[lay the newlist.
+        }, 
+        displayBookstore() { 
+          const bookList = this.books.map((book) => `<p>${book}</p>`); // this line code is  print each element in the "books" Array to <p> element. and sing that to a new variable to use it in innerHTML
+          document.getElementById('bookstore').innerHTML = bookList.join(''); 
+          shoppingCart.displayCart(this.removeBook.bind(this));//this call the display function to disply the elementin displayCart and insure that the handeleClick calls the romoveBook() function in this context
+          
+        }, 
+      }; 
+ 
+      const shoppingCart = { 
+        itemsInCart: ['The Great Gatsby'], 
+        handleClick(removeBook) { 
+          removeBook(this.itemsInCart); //this make a method named handleClick that call the removeBook as callBack function giving it the Array as its argument.
+        }, 
+        displayCart(clickHandler) { 
+          const itemsInCart = this.itemsInCart.map((item) => `<p>${item}</p>`); // this line code is  print each element in the "itemInCart" Array to <p> element. and sing that to the same Array.
+          const checkoutButton = "<button id='checkout'>Check Out</button>"; //that line cood make the button
+ 
+          document.getElementById('cart').innerHTML = itemsInCart.join('') + checkoutButton; //this line code displays the element in the itemInCart and the checkoutButton.
+          document.getElementById('checkout').addEventListener('click', () => this.handleClick(clickHandler)); //add an event and call the handleClick function.
+        }, 
+      }; 
+       bookstore.displayBookstore(); //this call the display function to display the items in the Arrays when the web lanshed.
+    </script>
+  </body> 
